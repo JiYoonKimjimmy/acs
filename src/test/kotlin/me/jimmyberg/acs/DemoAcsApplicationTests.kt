@@ -8,6 +8,7 @@ class DemoAcsApplicationTests {
 
     @Test
     fun contextLoads() {
+        println("Hello ACS World!")
     }
 
 }

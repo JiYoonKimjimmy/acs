@@ -26,5 +26,13 @@
 
 ---
 
+## Project Test
+
+### `HTTP Request` Test
+- `Intellij` `HTTP` 요청 테스트 파일 활용
+- `/docs/http/*.http` 위치의 파일 정의된 API 테스트 가능
+
+---
+
 ### Link
 - [주소 연계 서비스 개발자 센터](https://business.juso.go.kr/addrlink/main.do)
