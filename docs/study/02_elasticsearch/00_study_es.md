@@ -1,4 +1,4 @@
-# Elasticsearch Study.01
+# Elasticsearch Study
 
 ## Elasticsearch 학습
 `Elasticsearch` 가 무엇이고, 어떤 활용성이 있고, 어떤 녀석인지는 대충 알지만, 

@@ -1,4 +1,4 @@
-# Spring F/W Study.01
+# Spring F/W Study
 
 ## Spring F/W 학습
 과연 얼마나 `Spring F/W`를 이해하고 있을까?
