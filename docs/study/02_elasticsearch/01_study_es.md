@@ -112,6 +112,55 @@
 
 ---
 
+## Beats 소개
+
+`Beats` 는 `Logstash` 가 다소 무거운 단점을 보완해주는 역할을 위해 데이터를 수집하여 필터링 작업과 같은 기능없이 
+바로 `Elasticsearch` 로 저장해주는 역할을 한다.
+
+네트워크 패킷을 스니핑하여 `Elasticsearch` 에 저장하는 `PacketBeat` 를 통해서 처음 개발 및 도입되었고,
+현재는 다양한 개발자들이 `Beats` 기반의 다양한 데이터를 수집하는 수집기 개발하였고, 현재 `Elastic` 사에서는
+`Packetbeat`, `Libbeat`, `Filebeat`, `Metricbeat`, `Winlogbeat`, `Auditbeat` 등을 개발하여 배포하고 있다.
+
+--- 
+
+### Beats 종류
+
+#### LibBeat
+
+- `PacketBeat` 에서 `Elasticsearch` 로 전송하는 부분만 떼놓은 공통 라이브러리이다.
+- 특정한 데이터를 수집하는 부분만 코딩하고, `JSON` 문서로 변환하고, 데이터를 유실하지 않게 관리하는 역할을 한다. 
+
+#### PacketBeat
+
+- 설치된 시스템의 네트워크 패킷을 스니핑하여 정보를 수집한다.
+
+#### FileBeat
+
+- 특정 경로에 있는 파일을 주기적으로 읽어서 정보를 수집한다.
+
+#### MetricBeat
+
+- `MetricBeat` 가 실행된 시스템에서 실행 중인 프로세스들의 정보를 모니터링하여 프로세스에서 소모중인 CPU, 메모리 등 정보를 수집한다.
+
+#### WinlogBeat
+
+- `Microsoft Windows` 기반 시스템에서 시스템에 적재되는 `Windows event` 들을 수집한다.
+
+#### AuditBeat
+
+- `Linux` 시스템의 사용자 접속과 실행 이벤트 로그들과 같은 감사 데이터를 수집한다.
+
+#### HeartBeat
+
+- ICMP, TCP, HTTP 프로토콜 등을 통해 Ping 명령으로 원격의 프로세스의 가동 여부를 확인하는 것과 같이 다른 프로세스들의 가동 시간 정보를 수집한다.
+
+#### FunctionBeat
+
+- 마이크로 서비스 아키텍쳐(MSA)와 같은 FaaS 클라우드 기반의 시스템에서 서버리스 프레임워크를 이용하여 클라우드 인프라 정보를 수집한다.
+- 다른 `Beats` 들과 달리 수집을 위한 데이터가 있는 시스템에 설치되는 것이 아니라 `AWS Lamda` 와 같은 기능으로 배포가 된다.
+
+---
+
 #### 출처
 - [Elastic 가이드북](https://esbook.kimjmin.net/)
 - [Elasticsearch in Action](https://www.manning.com/books/elasticsearch-in-action)
