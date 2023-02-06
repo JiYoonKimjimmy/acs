@@ -42,6 +42,41 @@
 
 ---
 
+## 하나의 서버에 여려 클러스터 구성
+
+하나의 물리 서버에 3개의 노드를 실행시키고, 각 노드별로 클러스터는 각각 지정해주어 클러스터 구성을 다양하게 설정할 수 있다.
+
+다음 예시는 `node-1, node-2, node-3` 의 노드 중 `node-1` 과 `node-2` 는 `es-cluster-1`, `node-3` 는 `es-cluster-2` 로 구성하여 실행시킨다.
+
+```yaml
+# node-1
+cluster.name: es-cluster-1
+node.name: "node-1"
+
+# node-2
+cluster.name: es-cluster-1
+node.name: "node-2"
+
+# node-3
+cluster.name: es-cluster-2
+node.name: "node-3"
+```
+
+위와 같은 구성을 하였을 때, 각 노드별 포트는 아래와 같다
+
+|   Node   | Type | Port |
+|:--------:|:----:|:----:|
+| `node-1` | HTTP | 9200 |
+| `node-1` | TCP  | 9300 |
+| `node-2` | HTTP | 9201 |
+| `node-2` | TCP  | 9301 |
+| `node-3` | HTTP | 9202 |
+| `node-3` | TCP  | 9302 |
+
+![하나의 서버에 여려 클러스터 구성](./image/es_study_03_03.png)
+
+---
+
 #### 출처
 - [Elastic 가이드북](https://esbook.kimjmin.net/)
 - [Elasticsearch in Action](https://www.manning.com/books/elasticsearch-in-action)
