@@ -162,5 +162,5 @@
 ---
 
 #### 출처
-- [Elastic 가이드북](https://esbook.kimjmin.net/)
+- [김종민님 - Elastic 가이드북](https://esbook.kimjmin.net/)
 - [Elasticsearch in Action](https://www.manning.com/books/elasticsearch-in-action)

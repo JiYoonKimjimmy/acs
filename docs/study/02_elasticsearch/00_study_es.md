@@ -18,7 +18,7 @@
 > 목차
 > 1. [Elasticsearch 소개](./01_study_es.md)
 > 2. [Elasticsearch 설치 및 설정](./02_study_es.md)
-> 3. Elasticsearch 시스템 구조
+> 3. [Elasticsearch 시스템 구조](./03_study_es.md)
 > 4. Elasticsearch 데이터 처리
 > 5. Query DSL
 > 6. 데이터 색인과 텍스트 분석
@@ -26,3 +26,8 @@
 > 8. 집계
 
 ---
+
+#### 출처
+- [김종민님 - Elastic 가이드북](https://esbook.kimjmin.net/)
+  - `Elastic` 회사의 개발자이셨던 **김종민님의 `Elastic 가이드북`** 을 주로 참고하여 문서 작성 계획
+- [Elasticsearch in Action](https://www.manning.com/books/elasticsearch-in-action)
