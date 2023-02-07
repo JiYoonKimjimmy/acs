@@ -88,6 +88,55 @@ node.name: "node-3"
 
 ---
 
+## 인덱스와 샤드 - Index & Shards
+
+`Elasticsearch` 에서 단일 데이터에 대한 명칭은 **인덱스 `Index`** 라고 한다.
+(**인덱스**라는 명칭이 다양하게 사용되기도 하여서 *인덱시스 `Indices`* 라고도 표현한다.)
+
+인덱스는 기본적으로 **샤드 `Shard`** 라는 단위로 분리되어 각 노드에 저장된다.
+샤드는 루씬의 단일 검색 인스턴스이다.
+
+하나의 인덱스가 5개의 샤드로 분리되어 하나의 노드에 저장되면 다음과 같다.
+
+![5개의 샤드로 저장된 인덱스](./image/es_study_03_05.png)
+
+### Primary Shard & Replica
+
+인덱스를 생성 시 별도 설정이 없다면, `7.0 버전` 부터는 **1개의 샤드로 인덱스가 구성**되며, `6.x 이하 버전` 에서는 **5개로 구성된다.**
+클러스터에 노드를 추가하게 되면, 샤드가 각 노드에 분산되고 1개의 복사본이 기본적으로 생성된다.
+
+처음에 생성된 샤드는 **Primary Shard**가 되고, 당연히 복제본은 **Replica Shard**가 된다.
+
+예시로, 노드 4개가 있는 클러스터에 1개의 인덱스가 5개의 샤드로 구성된다면, 각 5개의 `Primary Shard` 와 5개의 `Replica Shard` 가 생성되는 것이다.
+
+![4개의 노드에 5개의 샤드 저장](./image/es_study_03_06.png)
+
+> 노드가 하나만 있다면, `Replica Shard` 는 생성되지 않고 `Primary Shard` 만 존재한다.<br>
+> 그렇기 때문에 `Elasticsearch` 에서는 하나의 클러스터에 최소 3개의 노드를 구성하는 것을 권한다. 
+
+`Replica Shard` 가 필요한 이유는, 당연히 하나의 노드에 장애가 발생한다고 하더라도 데이터의 유실없이 서비스 운영이 가능하기 때문이다.
+
+![하나의 노드 장애 발생한 경우](./image/es_study_03_07.png)
+
+처음에는 클러스터에서 먼저 노드의 장애가 복구될 때까지 기다린다. 하지만 노드가 복구되지 않늗다고 하면, 장애 노드에 있던 샤드를 다른 노드에 복제한다.
+
+위 그림처럼 `Node-3` 장애로 인해 `Shard-0` 과 `Shard-4` 가 다른 노드에 하나씩만 남았다.
+이런 경우 노드 복구를 기다린 후 복구되지 않으면, `Shard-0` 과 `Shard-4` 를 각각 `Node-2` 와 `Node-4` 에 추가 복제한다.
+
+이런 데이터 분산 처리 방식을 통해서 `Elasticsearch` 에서는 장애에 대한 데이터 유실을 방지하고 있다.
+
+> `Primary Shard` 가 유실되는 경우에는, 새로운 `Primary Shard` 를 생성하는 것이 아니라,
+> 남아있는 `Replica Shard` 를 `Primary Shard` 로 전환하고, 다시 `Replica Shard` 를 생성한다.
+
+---
+
+> #### Shard 개수 설정<br>
+> `Shard` 의 개수 설정은 인덱스 최초 생성할 때 지정이 가능하다.<br>
+> `Primary Shard` 는 인덱스 처음 생성할 때만 가능하고, 인덱스를 재색인 하지 않는 이상 변경 불가능하다.<br>
+> `Replica Shard` 는 추후에도 변경 가능하다.
+
+---
+
 #### 출처
 - [김종민님 - Elastic 가이드북](https://esbook.kimjmin.net/)
 - [Elasticsearch in Action](https://www.manning.com/books/elasticsearch-in-action)
