@@ -176,7 +176,7 @@ POST my_index/_doc
 }
 ```
 
-#### _update - 입력된 도큐먼트를 수정
+#### `_update` : 입력된 도큐먼트를 수정
 
 ##### Request
 
@@ -260,6 +260,327 @@ DELETE my_index
 {
   "acknowledged" : true
 }
+```
+
+---
+
+## Bulk 벌크 처리 API
+
+- 대량의 데이터를 처리할 때 `_bulk API` 통해서 처리 가능하다.
+- `index`, `create`, `update`, `delete` 에서 동작 가능하다.
+
+#### `_bulk` 요청 예제
+
+
+##### Request
+
+```json lines
+POST _bulk
+{"index":{"_index":"test", "_id":"1"}}
+{"field":"value one"}
+{"index":{"_index":"test", "_id":"2"}}
+{"field":"value two"}
+{"delete":{"_index":"test", "_id":"2"}}
+{"create":{"_index":"test", "_id":"3"}}
+{"field":"value three"}
+{"update":{"_index":"test", "_id":"1"}}
+{"doc":{"field":"value two"}}
+```
+
+##### Response
+
+```json lines
+{
+  "took" : 440,
+  "errors" : false,
+  "items" : [
+    {
+      "index" : {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_version" : 1,
+        "result" : "created",
+        "_shards" : {
+          "total" : 2,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 0,
+        "_primary_term" : 1,
+        "status" : 201
+      }
+    },
+    {
+      "index" : {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "2",
+        "_version" : 1,
+        "result" : "created",
+        "_shards" : {
+          "total" : 2,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 1,
+        "_primary_term" : 1,
+        "status" : 201
+      }
+    },
+  // ...
+  ]
+}
+```
+
+---
+
+## 검색 API
+
+`Elasticsearch` 는 인덱스 단위의 데이터를 검색하는 기능이 탁월하다.
+
+검색은 `GET <인덱스명>/_search` 형식을 사용하여 쿼리 `Query` 질의 방식으로 검색 조회한다. 
+아무런 쿼리가 없다면 도큐먼트 전체 조회하는 `match_all` 를 한다.
+
+검색 API 는 다음과 같은 검색 방식을 지원한다.
+
+- **URI 검색**
+- **Data Body 검색**
+
+### URI 검색
+
+URI 검색은 말 그대로 검색 URI 에 검색하고자 하는 검색 쿼리 질의문 포함하여 조회 요청하는 방식이다.
+
+#### 예시 1) `test` 라는 인덱스에서 `value` 라는 문자열 포함한 데이터 조회 방법
+
+- 검색를 하고자하는 문자열을 `?q=<검색 문자열>` 방식을 사용한다.
+- 응답 정보에서 **Relevancy** 정확도가 높은 순서대로 `hits.hits` 정보에 목록으로 응답 처리된다.
+
+##### Request
+
+```http request
+GET test/_search?q=value
+```
+
+##### Response
+
+```json lines
+{
+  "took" : 3,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 0.105360515,
+    "hits" : [
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "3",
+        "_score" : 0.105360515,
+        "_source" : {
+          "field" : "value three"
+        }
+      },
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_score" : 0.105360515,
+        "_source" : {
+          "field" : "value two"
+        }
+      }
+    ]
+  }
+}
+```
+
+#### 예시 2) `test` 라는 인덱스에서 `value` 와 `three` 라는 문자열 모두 포함하는 데이터 조회 방법
+
+- 조건을 추가하기 위해서 `AND, OR, NOT` 를 사용할 수 있다.
+
+##### Request
+
+```http request
+GET test/_search?q=value AND three
+```
+
+##### Response
+
+```json lines
+{
+  "took" : 3,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
+    },
+    "max_score" : 0.87546873,
+    "hits" : [
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "3",
+        "_score" : 0.87546873,
+        "_source" : {
+          "field" : "value three"
+        }
+      }
+    ]
+  }
+}
+```
+
+#### 예시 3) `test` 라는 인덱스에서 `field` 라는 필드에서 `value` 라는 문자열 포함하는 데이터 조회 방법
+
+- 원하는 필드명에 포함된 문자열을 조회하려면, `<필드명>:<검색 문자열>` 형식으로 질의를 작성한다.
+
+##### Request
+
+```http request
+GET test/_serach?q=filed:value
+```
+
+##### Response
+
+```json lines
+{
+  "took" : 1,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 0.18232156,
+    "hits" : [
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "3",
+        "_score" : 0.18232156,
+        "_source" : {
+          "field" : "value three"
+        }
+      },
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_score" : 0.18232156,
+        "_source" : {
+          "field" : "value two"
+        }
+      }
+    ]
+  }
+}
+```
+
+---
+
+### Data Body 검색
+
+`Data Body` 데이터 본문 검색 방식은 검색 쿼리 질의문을 `HTTP Body` 에 포함하여 조회 요청하는 방식이다.
+`Elasticsearch` 의 `QueryDSL` 을 사용하여 `JSON` 형식으로 작성 가능하다.
+
+#### 예시) `test` 라는 인덱스에서 `field` 라는 필드에서 `value` 라는 문자열 포함하는 데이터 조회 방법
+
+- 가장 많이 사용하는 `match` 쿼리 질의문을 사용하여 필드명에 포함된 문자열을 조회한다.
+
+##### Request
+
+```json lines
+GET test/_search
+{
+  "query": {
+    "match": {
+      "field": "value"
+    }
+  }
+}
+```
+
+##### Response
+
+```json lines
+{
+  "took" : 2,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 0.105360515,
+    "hits" : [
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "3",
+        "_score" : 0.105360515,
+        "_source" : {
+          "field" : "value three"
+        }
+      },
+      {
+        "_index" : "test",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_score" : 0.105360515,
+        "_source" : {
+          "field" : "value two"
+        }
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Multi-tenancy 멀티 테넌시
+
+`Elasticsearch` 에서는 여러 개의 인덱스를 한번에 질의할 수 있는 `Multi-tenancy` 을 지원한다.
+
+`Multi-tenancy` 를 활용하면, 날짜별로 저장되어있는 여러 개의 로그 파일을 한번의 질의를 통해 검색 가능하다.
+
+#### `,` 쉼표로 구분한 여러 개의 인덱스 한번에 조회하는 방법
+```http request
+GET logs-2018-01,2018-02,2018-03/_search
+```
+
+#### `*` 와일드카드로 여러 개의 인덱스 한번에 조회하는 방법
+```json lines
+GET logs-2018-*/_search
 ```
 
 ---
