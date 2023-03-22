@@ -1,9 +1,19 @@
-# Elasticsearch Study.06
+# Elasticsearch Study.06.01
 
 `Elasticsearch` 에서 최적화 검색을 위해 데이터 원본 문서를 `Inverted Index` **역인덱스** 과정을 거친다.
 
 역인덱스 과정은 텍스트 분석을 하는 애널라이저를 통해서 이뤄지며, 검색 최적화를 위해 `Elasticsearch` 에서는
 다양한 설정을 지원하고, 처리 가능하다.
+
+`Elasticsearch` 의 역인덱스 과정을 이해하기 위해서는 다음과 같은 개념들이 필요하다.
+
+- `Inverted Index` **역인덱스**
+- `Text Analysis` **텍스트 분석**
+- `Analyzer` **애널라이저**
+- `Character Filter` **캐릭터 필터**
+- `Tokenizer` **토크나이저**
+- `Token Filter` **토큰 필터**
+- `Stemming` **형태소 분석**
 
 ---
 
@@ -340,6 +350,71 @@ PUT my_index3
 ### `_termvectors` API
 
 - 색인된 문서의 역인덱스된 내용을 확인할 때, `_termvectors` API 를 활용하면 된다.
+
+##### Request
+
+```json lines
+GET my_index3/_termvectors/1?fields=message
+```
+
+##### Response
+
+```json lines
+{
+  "_index" : "my_index3",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "found" : true,
+  "took" : 1,
+  "term_vectors" : {
+    "message" : {
+      "field_statistics" : {
+        "sum_doc_freq" : 7,
+        "doc_count" : 1,
+        "sum_ttf" : 8
+      },
+      "terms" : {
+        "dog" : {
+          "term_freq" : 1,
+          "tokens" : [
+            {
+              "position" : 8,
+              "start_offset" : 40,
+              "end_offset" : 43
+            }
+          ]
+        },
+        // ...
+        "the" : {
+          "term_freq" : 2,
+          "tokens" : [
+            {
+              "position" : 0,
+              "start_offset" : 0,
+              "end_offset" : 3
+            },
+            {
+              "position" : 6,
+              "start_offset" : 31,
+              "end_offset" : 34
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+```
+
+---
+
+`Analyzer` **애널라이저** 에 대해 구성과 애널라이저를 확인하는 방법 등을 살펴보았다.
+
+애널라이저가 구성되는 `Character Filter` 캐릭터 필터, `Tokenizer` 토크나이저, `Token Filter` 토큰 필터 는 다음 장에서 좀 더 자세히 정리하도록 하겠다.
+
+### [Elasticsearch Study.06.02](./06_study_es_02.md)
 
 ---
 

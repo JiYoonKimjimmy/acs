@@ -21,7 +21,7 @@
 > 3. [Elasticsearch 시스템 구조](./03_study_es.md)
 > 4. [Elasticsearch 데이터 처리](./04_study_es.md)
 > 5. 검색과 쿼리 - Query DSL
-> 6. [데이터 색인과 텍스트 분석](./06_study_es.md)
+> 6. [데이터 색인과 텍스트 분석](./06_study_es_01.md)
 > 7. 인덱스 설정과 매핑
 > 8. 집계
 
