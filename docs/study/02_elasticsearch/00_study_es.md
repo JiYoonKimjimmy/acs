@@ -1,6 +1,7 @@
 # Elasticsearch Study
 
 ## Elasticsearch 학습
+
 `Elasticsearch` 가 무엇이고, 어떤 활용성이 있고, 어떤 녀석인지는 대충 알지만, 
 당연히 제대로 학습해야 하기에 학습을 시작하기로 했다.
 
@@ -17,12 +18,12 @@
 
 > 목차
 > 1. [Elasticsearch 소개](./01_study_es.md)
-> 2. [Elasticsearch 설치 및 설정](./02_study_es.md)
+> 2. [Elasticsearch 시작하기](./02_study_es.md)
 > 3. [Elasticsearch 시스템 구조](./03_study_es.md)
 > 4. [Elasticsearch 데이터 처리](./04_study_es.md)
 > 5. 검색과 쿼리 - Query DSL
 > 6. [데이터 색인과 텍스트 분석](./06_study_es_01.md)
-> 7. 인덱스 설정과 매핑
+> 7. [인덱스 설정과 매핑](./07_study_es.md)
 > 8. 집계
 
 ---
