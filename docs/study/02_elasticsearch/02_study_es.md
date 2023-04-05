@@ -1,5 +1,7 @@
 # Elasticsearch Study.02
 
+## Elasticsearch 시작하기
+
 `Elasticsearch` 의 기본 설치 및 설정 방법을 살펴보자.
 
 > 1. 데이터 색인

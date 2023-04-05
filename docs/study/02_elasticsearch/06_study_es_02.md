@@ -1,5 +1,7 @@
 # Elasticsearch Study.06.02
 
+## 데이터 색인과 텍스트 분석 <small>두번째</small>
+
 `Elasticsearch` 의 역인덱스 과정은 `Analyzer` 애널라이저를 통해서 처리된다.
 
 애널라이저는 다음과 같은 구성으로 이뤄지고, 각 역할에 대해 자세히 살펴보자.

@@ -1,5 +1,7 @@
 # Elasticsearch Study.06.01
 
+## 데이터 색인과 텍스트 분석 <small>첫번째</small>
+
 `Elasticsearch` 에서 최적화 검색을 위해 데이터 원본 문서를 `Inverted Index` **역인덱스** 과정을 거친다.
 
 역인덱스 과정은 텍스트 분석을 하는 애널라이저를 통해서 이뤄지며, 검색 최적화를 위해 `Elasticsearch` 에서는

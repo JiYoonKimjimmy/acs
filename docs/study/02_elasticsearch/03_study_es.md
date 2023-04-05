@@ -1,5 +1,7 @@
 # Elasticsearch Study.03
 
+## Elasticsearch 시스템 구조
+
 `Elasticsearch` 는 대용량 데이터 처리를 위해 스케일 아웃과 데이터 무결성을 유지하기 위한 클러스터링을 지원한다.
 클러스터는 항상 1개의 노드만 있어도 구성되며, 기본적인 동작을 한다.
 

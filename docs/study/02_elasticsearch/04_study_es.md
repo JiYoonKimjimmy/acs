@@ -1,5 +1,7 @@
 # Elasticsearch Study.04
 
+## Elasticsearch 데이터 처리
+
 `Elasticsearch` 는 `HTTP` 프로토콜과 `RESTFul API` 를 지원하고 있다. 
 그래서 어쩌면 현대의 개발자들에겐 좀 친화적인 데이터 요청과 응답 처리를 구현할 수 있는 것 같다.
 
