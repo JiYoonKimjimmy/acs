@@ -13,11 +13,74 @@
 
 ---
 
-## 인덱스 설정
+## Settings
+
+### `_settings`
+- 
+- 인덱스의 설정을 보기 위해서는 다음과 같이 조회할 수도 있지만, `_settings` 를 생략할 수도 있다.
+
+```json lines
+GET my_index/_settings
+```
+
+> `_settings` 를 생략할 경우, `_settings`, `_mappings` 정보 모두 확인 가능하다.
+
+### `number_of_shards`
+
+- 인덱스의 `Shard` **샤드**의 수를 정하는 설정이다.
+- 해당 설정을 지정하지 않는 경우 `7,0 버전`부터는 기본적으로 1개를 생성하고, `6.X 버전`까지는 기본 5개가 설정된다.
+- `number_of_shards` 설정 정보는 최초에 인덱스 생성 이후 변경이 불가능하다. 변경하고자 한다면 인덱스를 삭제 후 새로 생성해고 기존 인덱스의 데이터를 재색인해야 한다.
+
+```json lines
+PUT my_index
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 1
+    }
+  }
+}
+```
+
+> `shrink API` or `split API` 를 사용하여 인덱스 재생성 없이 샤드 수를 조정할 수 있다고 하지만, 이또한 인덱스를 **close** 하고, 파일 재배치를 하는 복잡한 과정이 필요하다고 한다.
+
+### `number_of_replicas`
+
+- 인덱스의 `Replica` **복제본**의 수를 정하는 설정이다.
+- 해당 설정은 인덱스 생성 이후에도 상시 변경이 가능하다.
+
+```json lines
+PUT my_index/_settings
+{
+  "number_of_replicas": 2
+}
+```
+
+### `refresh_interval`
+
+- `Elasticsearch` 에서 `Segment` **세그먼트**가 만들어지는 `refresh-time` 을 지정하는 설정이다.
+- 기본적으로 `1s(1초)` 가 설정된다.
+- 인덱스 생성 이후에도 상시 변경이 가능하다.
+
+```json lines
+PUT my_index
+{
+  "settings": {
+    "refresh_interval": "30s"
+  }
+}
+```
+
+### `analyzer`, `tokenizer`, `filter`
+
+- `Elasticsearch` 의 텍스트 분석을 위한 설정들도 [6. 데이터 색인과 텍스트 분석](./06_study_es_01.md)을 참고하면 될 것 같다.
 
 ---
 
-## 인덱스 매핑
+## Mappings
+
+
 
 ---
 
