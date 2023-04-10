@@ -16,7 +16,8 @@
 ## Settings
 
 ### `_settings`
-- 
+
+- `_settings` API 를 사용하면 해당 인덱스의 설정 정보를 조회할 수 있다.
 - 인덱스의 설정을 보기 위해서는 다음과 같이 조회할 수도 있지만, `_settings` 를 생략할 수도 있다.
 
 ```json lines
@@ -80,7 +81,43 @@ PUT my_index
 
 ## Mappings
 
+### `_mappings`
 
+- `_mappings` API 는 인덱스의 데이터가 입력되면, **데이터 타입 매핑 정보**에 대해 조회 가능하다.
+- `Elasticsearch` 는 다른 데이터 저장소와 같이 다양한 데이터 타입을 가지고 있다.
+- `Elasticsearch` 는 동적 매핑을 지원하기 때문에 별도 매핑 설정없이도 자동으로 매핑을 생성된다.
+
+#### `_mappings` 정의
+
+```json lines
+PUT <인덱스명>
+{
+  "mappings": {
+    "properties": {
+      "<필드명>":{
+        "type": "<필드 타입>"
+      },
+      // ...
+    }
+  }
+}
+```
+
+
+#### 데이터 타입 종류
+|          구분          | 설명 |
+|:--------------------:|----|
+|        `text`        | -  |
+|      `keyword`       | -  |
+| `long`, `double` ... | -  |
+|        `date`        | -  |
+|      `boolean`       | -  |
+|       `Object`       | -  |
+|       `Nested`       | -  |
+|        `Geo`         | -  |
+|         `IP`         | -  |
+|       `Range`        | -  |
+|       `Binary`       | -  |
 
 ---
 
