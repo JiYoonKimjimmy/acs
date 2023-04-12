@@ -133,6 +133,34 @@ GET books/_mapping
 
 ---
 
+## Multi Field
+
+`Elasticsearch` 의 도큐먼트에는 하나의 필드만 존재하지만, 하나의 필드값을 여러 개의 역색인 및 `doc_values` 를 저장할 수 있는데,
+이것을 `Multi Field` **다중 필드**라고 한다.
+
+**다중 필드**는 다국어 처리를 할 때 유용하며, 각 언어별 **애널라이저**를 다르게 지정하여 역색인 처리가 가능하다.
+
+#### 다중 필드 설정 방법
+```json lines
+PUT my_index
+{
+  "mappings": {
+    "properties": {
+      "<필드명1>": {
+        "type": "text",
+        "fields": {
+          "<필드명2>": {
+            "type": "<타입>"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
 #### 출처
 - [김종민님 - Elastic 가이드북](https://esbook.kimjmin.net/)
     - `Elastic` 회사의 개발자이셨던 **김종민님의 `Elastic 가이드북`** 을 주로 참고하여 문서 작성 계획
