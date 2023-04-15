@@ -29,6 +29,7 @@
 ### 주소 연계 수집 서비스
 - [주소 연계 서비스](https://business.juso.go.kr/addrlink/main.do) 오픈 API 를 활용하여 **도로명 주소** 정보 조회
 - 조회된 주소 정보 `Elasticsearch` 저장 처리
+- [**주소 연계 수집 서비스** 연동 방법 정리](./docs/study/99_etc/01_ADS/00_ads.md)
 
 #### 기능 구현
 - `Spring WebClient` API 활용하여 오픈 API 연동
