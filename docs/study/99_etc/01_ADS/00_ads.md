@@ -2,7 +2,7 @@
 
 ## 주소 DB 연계
 
-- **정부**에서 관리하는 국가 전체의 주소 정보를 수집하기 위해 [주소 연계 서비스](https://business.juso.go.kr/addrlink/main.do) 오픈 API 를 활용
+- **국가주소정보시스템** `KAIS` 에서 관리하는 국가 전체의 주소 정보를 수집하기 위해 [주소 연계 서비스](https://business.juso.go.kr/addrlink/main.do) 오픈 API 를 활용
 - 최초 1회 전체 데이터 수집 후, 1일 1회 `Batch` 처리를 통해서 변동 자료분에 대한 수집 처리
 - **주소 연계 서비스**에서 제공하는 `Java` 라이브러리 주입 필요하며 `API` 호출 모듈 분리
 
@@ -10,3 +10,11 @@
 
 ---
 
+### 주소 연계 API 연동
+
+- 주소 연계 API 연동은 `KAIS` 에서 제공하는 `JAR` 파일을 활용한다.
+- 가이드 문서를 참고하여 `JAR` 를 다운로드하고 프로젝트에 `import` 한다.
+
+> [도로명주소 연계 가이드](https://business.juso.go.kr/addrlink/adresDbCntc/rnAdresCntc.do)
+
+---
