@@ -5,10 +5,15 @@ import java.util.zip.ZipFile
 
 class FileManagementUtil {
 
+    private val basePath: String by lazy { System.getProperty("user.dir") }
+
     /**
      * 압축 파일 해제 처리
      */
-    fun unzip(sourcePath: String, targetPath: String) {
+    fun unzip(source: String, target: String) {
+        val sourcePath = "$basePath$source"
+        val targetPath = "$basePath$target"
+
         ZipFile(sourcePath).use { zip ->
             zip.entries().asSequence().forEach { entry ->
                 println("entry : $entry, entry.name: ${entry.name}")
