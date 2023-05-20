@@ -16,7 +16,7 @@ class FileManagementUtil {
 
         ZipFile(sourcePath).use { zip ->
             zip.entries().asSequence().forEach { entry ->
-                println("entry : $entry, entry.name: ${entry.name}")
+                println("entry : $entry")
                 val fileName = entry.name
                 val newFile = File("$targetPath${File.separator}$fileName")
                 // directory 생성
