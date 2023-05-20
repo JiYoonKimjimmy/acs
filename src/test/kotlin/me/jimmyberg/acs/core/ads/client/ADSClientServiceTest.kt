@@ -61,6 +61,7 @@ class ADSClientServiceTest {
         val content = "100001"
         ADSClientService()
             .receive(content = content, today = today())
+            .let { if (it) println("!! SUCCESS !!") else println("!! FAILED !!")  }
     }
 
 }
