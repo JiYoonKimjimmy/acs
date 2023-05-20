@@ -15,8 +15,6 @@ class FileManagementUtilTest {
         val targetPath = "$basePath/files/ADS_100001/20230519"
         val sourcePath = "$targetPath/AlterD.JUSUKR.20230519.ZIP"
 
-        val util = FileManagementUtil()
-
         ZipFile(sourcePath).use { zip ->
             zip.entries().asSequence().forEach { entry ->
                 println("entry : $entry")
@@ -40,8 +38,7 @@ class FileManagementUtilTest {
         val fileName = "AlterD.JUSUKR.20230519.ZIP"
         val sourcePath = "$filePath/$fileName"
 
-        val util = FileManagementUtil()
-        util.unzip(source = sourcePath, target = filePath)
+        FileManagementUtil.unzip(source = sourcePath, target = filePath)
     }
 
     @Test
@@ -58,6 +55,14 @@ class FileManagementUtilTest {
         }
 
         reader.close()
+    }
+
+    @Test
+    fun `FileManagementUtil read() 함수 테스트`() {
+        val path = "/files/ADS_100001/20230519"
+        val fileName = "AlterD.JUSUKR.20230519.TH_SGCO_RNADR_LNBR.TXT"
+
+        FileManagementUtil.readFile(path = path, fileName = fileName).forEach(::println)
     }
 
 }

@@ -1,9 +1,12 @@
 package me.jimmyberg.acs.core.ads.util
 
+import java.io.BufferedReader
 import java.io.File
+import java.io.FileReader
+import java.nio.charset.Charset
 import java.util.zip.ZipFile
 
-class FileManagementUtil {
+object FileManagementUtil {
 
     private val basePath: String by lazy { System.getProperty("user.dir") }
 
@@ -29,6 +32,24 @@ class FileManagementUtil {
                 }
             }
         }
+    }
+
+    /**
+     * 파일 Read 처리
+     */
+    fun readFile(path: String, fileName: String, charset: Charset = Charset.forName("EUC-KR")): MutableList<String> {
+        val result = mutableListOf<String>()
+        val file = File("$basePath$path", fileName)
+        val reader = BufferedReader(FileReader(file, charset))
+
+        while (true) {
+            val line = reader.readLine() ?: break
+            result += line
+        }
+
+        reader.close()
+
+        return result
     }
 
 }
