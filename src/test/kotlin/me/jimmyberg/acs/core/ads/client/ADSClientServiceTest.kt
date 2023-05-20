@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.core.ads
+package me.jimmyberg.acs.core.ads.client
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 /**
  * `U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=`
  */
-class ADSClientTest {
+class ADSClientServiceTest {
 
     /**
      * [자료 요청 구분]
@@ -54,6 +54,13 @@ class ADSClientTest {
             .forEach {
                 println("cntcCode: ${it.cntcCode}, resCode: ${it.resCode}")
             }
+    }
+
+    @Test
+    fun `100001 파일 ADSClientService receive() 함수 테스트`() {
+        val content = "100001"
+        ADSClientService()
+            .receive(content = content, today = today())
     }
 
 }
