@@ -15,6 +15,10 @@
 - 주소 연계 API 연동은 `KAIS` 에서 제공하는 `JAR` 파일을 활용한다.
 - 가이드 문서를 참고하여 `JAR` 를 다운로드하고 프로젝트에 `import` 한다.
 
-> [도로명주소 연계 가이드](https://business.juso.go.kr/addrlink/adresDbCntc/rnAdresCntc.do)
+> [도로명주소 연계 가이드 페이지](https://business.juso.go.kr/addrlink/adresDbCntc/rnAdresCntc.do)
 
 ---
+
+### 주소 수집 정보
+
+- `100001` 도로명주소 한글 테이블(`master`)
