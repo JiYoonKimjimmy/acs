@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ADSClientService(
+class ADSClient(
     var dateType: String = "D",
     var retry: String = "Y"
 ) {

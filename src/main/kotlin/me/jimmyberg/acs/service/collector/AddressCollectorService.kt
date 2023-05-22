@@ -1,13 +1,13 @@
 package me.jimmyberg.acs.service.collector
 
-import me.jimmyberg.acs.client.ADSClientService
+import me.jimmyberg.acs.client.ADSClient
 import me.jimmyberg.acs.util.FileManagementUtil
 import me.jimmyberg.acs.util.today
 import org.springframework.stereotype.Service
 
 @Service
 class AddressCollectorService(
-    val adsClientService: ADSClientService
+    val adsClient: ADSClient
 ) {
 
     /**
@@ -25,7 +25,7 @@ class AddressCollectorService(
     }
 
     fun receiveFile(content: String) {
-        adsClientService
+        adsClient
             .apply {
                 dateType = "D"
                 retry = "Y"

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 /**
  * `U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=`
  */
-class ADSClientServiceTest {
+class ADSClientTest {
 
     /**
      * [자료 요청 구분]
@@ -59,7 +59,7 @@ class ADSClientServiceTest {
     @Test
     fun `100001 파일 ADSClientService receive() 함수 테스트`() {
         val content = "100001"
-        ADSClientService()
+        ADSClient()
             .receive(content = content, today = today())
             .let { if (it) println("!! SUCCESS !!") else println("!! FAILED !!")  }
     }
