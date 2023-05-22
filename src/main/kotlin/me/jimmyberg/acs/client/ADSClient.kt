@@ -2,6 +2,7 @@ package me.jimmyberg.acs.client
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
+import kr.go.ads.client.ReceiveData
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -18,7 +19,7 @@ class ADSClient(
     @Value("\${acs.file-path}")
     val filePath: String = "files/ADS_"
 
-    fun receive(content: String, today: String): Boolean {
+    fun receive(content: String, today: String): ArrayList<ReceiveData> {
         return ADSReceiver()
             .apply {
                 this.setFilePath("$filePath$content")
@@ -26,7 +27,6 @@ class ADSClient(
             }
             .receiveAddr(clientKey, dateType, content, retry, today, today)
             .getReceiveDatas(ADSUtils.UPDATE_ASC)
-            .all { it.resCode == "P0000" }
     }
 
 }

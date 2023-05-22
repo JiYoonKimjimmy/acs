@@ -2,6 +2,7 @@ package me.jimmyberg.acs.client
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
+import me.jimmyberg.acs.support.enumerate.ADSResponseCode
 import me.jimmyberg.acs.util.today
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -54,15 +55,23 @@ class ADSClientTest {
     }
 
     @Test
-    fun `ADSClient receive 함수 테스트`() {
+    fun `ADSClient receive 함수 성공 테스트`() {
         val content = "100001"
-        assert(ADSClient().receive(content = content, today = today()))
+
+        val result = ADSClient()
+            .receive(content = content, today = today())
+            .all { it.resCode == ADSResponseCode.P0000.name }
+
+        assert(result)
     }
 
     @Test
     fun `요청 content 디렉토리가 없는 경우`() {
         val content = "100002"
-        assertThrows<FileNotFoundException> { ADSClient().receive(content = content, today = today()) }
+
+        assertThrows<FileNotFoundException> {
+            ADSClient().receive(content = content, today = today())
+        }
     }
 
 }
