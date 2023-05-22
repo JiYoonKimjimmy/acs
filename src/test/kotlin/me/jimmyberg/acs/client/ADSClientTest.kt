@@ -2,9 +2,10 @@ package me.jimmyberg.acs.client
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
+import me.jimmyberg.acs.util.today
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import org.junit.jupiter.api.assertThrows
+import java.io.FileNotFoundException
 
 /**
  * `U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=`
@@ -33,10 +34,6 @@ class ADSClientTest {
         daily(content = "200002", today = today())
     }
 
-    private fun today(): String {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-    }
-
     private fun daily(content: String, today: String) {
         val key      = "U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=" // 승인키
         val dateType = "D"        // 날짜 구분
@@ -57,11 +54,15 @@ class ADSClientTest {
     }
 
     @Test
-    fun `100001 파일 ADSClientService receive() 함수 테스트`() {
+    fun `ADSClient receive 함수 테스트`() {
         val content = "100001"
-        ADSClient()
-            .receive(content = content, today = today())
-            .let { if (it) println("!! SUCCESS !!") else println("!! FAILED !!")  }
+        assert(ADSClient().receive(content = content, today = today()))
+    }
+
+    @Test
+    fun `요청 content 디렉토리가 없는 경우`() {
+        val content = "100002"
+        assertThrows<FileNotFoundException> { ADSClient().receive(content = content, today = today()) }
     }
 
 }
