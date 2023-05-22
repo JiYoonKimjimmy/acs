@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.core.ads.util
+package me.jimmyberg.acs.util
 
 import org.junit.jupiter.api.Test
 import java.io.BufferedReader

@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.core.ads.client
+package me.jimmyberg.acs.client
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils

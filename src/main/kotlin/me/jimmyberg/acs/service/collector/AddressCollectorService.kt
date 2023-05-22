@@ -1,8 +1,8 @@
-package me.jimmyberg.acs.core.ads.collector
+package me.jimmyberg.acs.service.collector
 
-import me.jimmyberg.acs.core.ads.client.ADSClientService
-import me.jimmyberg.acs.core.ads.util.FileManagementUtil
-import me.jimmyberg.acs.core.ads.util.today
+import me.jimmyberg.acs.client.ADSClientService
+import me.jimmyberg.acs.util.FileManagementUtil
+import me.jimmyberg.acs.util.today
 import org.springframework.stereotype.Service
 
 @Service

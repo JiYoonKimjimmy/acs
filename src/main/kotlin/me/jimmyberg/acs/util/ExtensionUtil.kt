@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.core.ads.util
+package me.jimmyberg.acs.util
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
