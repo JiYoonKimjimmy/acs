@@ -2,6 +2,7 @@ package me.jimmyberg.acs.client
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
+import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.enumerate.ADSResponseCode
 import me.jimmyberg.acs.util.today
 import org.junit.jupiter.api.Test
@@ -55,7 +56,7 @@ class ADSClientTest {
 
     @Test
     fun `ADSClient receive 함수 성공 테스트`() {
-        val content = "100001"
+        val content = ADSContent.JUSUEN
 
         val result = ADSClient()
             .receive(content = content, today = today())
@@ -66,8 +67,8 @@ class ADSClientTest {
 
     @Test
     fun `요청 content 디렉토리가 없는 경우 디렉토리 생성 후 재요청 테스트`() {
-        val content = "100001"
-        val filePath = "files/ADS_$content"
+        val content = ADSContent.JUSUKR
+        val filePath = "files/ADS_${content.code}"
         val directory = File(filePath)
         if (directory.exists()) {
             directory.delete()
