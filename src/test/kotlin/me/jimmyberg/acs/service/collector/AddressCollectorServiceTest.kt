@@ -12,7 +12,15 @@ class AddressCollectorServiceTest(
 
     @Test
     fun `getTodayAddress 함수 테스트`() {
-        addressCollectorService.getTodayAddress(content = ADSContent.JUSUKR)
+        addressCollectorService
+            .getTodayAddress(content = ADSContent.JUSUKR)
+            .forEach(this::print)
+    }
+
+    private fun print(content: AddressContent) {
+        println("================== START [${content.name}] ==================")
+        content.details.forEach(::println)
+        println("=================== END [${content.name}] ===================")
     }
 
 }
