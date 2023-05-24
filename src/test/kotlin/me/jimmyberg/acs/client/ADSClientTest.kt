@@ -6,7 +6,10 @@ import me.jimmyberg.acs.support.enumerate.ADSResponseCode
 import me.jimmyberg.acs.util.today
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.io.File
 import java.io.FileNotFoundException
+import java.nio.file.Paths
+import kotlin.io.path.Path
 
 /**
  * `U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=`
@@ -66,12 +69,15 @@ class ADSClientTest {
     }
 
     @Test
-    fun `요청 content 디렉토리가 없는 경우`() {
-        val content = "100002"
-
-        assertThrows<FileNotFoundException> {
-            ADSClient().receive(content = content, today = today())
+    fun `요청 content 디렉토리가 없는 경우 디렉토리 생성 후 재요청 테스트`() {
+        val content = "100001"
+        val filePath = "files/ADS_$content"
+        val directory = File(filePath)
+        if (directory.exists()) {
+            directory.delete()
         }
+
+        ADSClient().receive(content = content, today = today())
     }
 
 }
