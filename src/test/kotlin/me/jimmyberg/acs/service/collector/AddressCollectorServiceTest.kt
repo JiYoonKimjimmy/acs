@@ -13,7 +13,7 @@ class AddressCollectorServiceTest(
     @Test
     fun `getTodayAddress 함수 테스트`() {
         addressCollectorService
-            .getTodayAddress(content = ADSContent.JUSUKR)
+            .collect(content = ADSContent.JUSUKR)
             .forEach(this::print)
     }
 

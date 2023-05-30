@@ -16,7 +16,7 @@ class AddressCollectorService(
     /**
      * 현재 일자 변동 주소 정보 수집 처리
      */
-    fun getTodayAddress(content: ADSContent): List<AddressContent> {
+    fun collect(content: ADSContent): List<AddressContent> {
         // 주소 연계 정보 조회 from ADS
         receiveFile(content)
         // 조회 파일 unzip
