@@ -1,6 +1,7 @@
 package me.jimmyberg.acs.service.collector
 
 import me.jimmyberg.acs.support.enumerate.ADSContent
+import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +23,7 @@ class AddressCollectorServiceTest(
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
-        assert(log.isNotEmpty())
+        assertThat(log).isNotEmpty()
     }
 
     private fun log(content: AddressContent): String {
