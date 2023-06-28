@@ -15,9 +15,16 @@ class AddressCollectorServiceTest(
     @DisplayName("도로명주소(한글) 연계정보 다운로드 요청 실패한다.")
     @Test
     fun fail() {
+        // given
         val content = ADSContent.JUSUKR
 
-        assertThrows<Exception> { collect(content = content, exception = true) }
+        // when
+        val error = assertThrows<Exception> { collect(content = content, exception = true) }
+
+        // then
+        assertThat(error)
+            .message()
+            .isEqualTo("예외 발생!!")
     }
 
     @DisplayName("도로명주소(한글) 연계정보를 다운로드 요청하여 데이터 출력한다.")
@@ -36,7 +43,7 @@ class AddressCollectorServiceTest(
 
     private fun collect(content: ADSContent, exception: Boolean = false): List<AddressContent> {
         return if (exception) {
-            throw Exception()
+            throw Exception("예외 발생!!")
         } else {
             addressCollectorService.collect(content = content)
         }
