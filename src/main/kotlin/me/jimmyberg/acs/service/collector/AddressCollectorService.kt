@@ -26,12 +26,16 @@ class AddressCollectorService(
     }
 
     fun receiveFile(content: ADSContent) {
-        adsClient
-            .apply {
-                dateType = ADSDateType.DATE
-                retry = YesNo.YES
-            }
-            .receive(content, today())
+        try {
+            adsClient
+                .apply {
+                    dateType = ADSDateType.DATE
+                    retry = YesNo.YES
+                }
+                .receive(content, today())
+        } catch (e: Exception) {
+            throw Exception("FAILED ${content.code} receiveFile")
+        }
     }
 
     fun unzipFile(content: ADSContent) {

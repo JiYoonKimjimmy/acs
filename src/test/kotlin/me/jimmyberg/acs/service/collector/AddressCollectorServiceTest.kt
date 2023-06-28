@@ -12,41 +12,34 @@ import org.springframework.boot.test.context.SpringBootTest
 class AddressCollectorServiceTest(
     @Autowired val addressCollectorService: AddressCollectorService
 ) {
-    @DisplayName("도로명주소(한글) 연계정보 다운로드 요청 실패한다.")
+
+    @DisplayName("도로명주소(한글) 연계정보를 ADSClient 다운로드 요청 실패한다.")
     @Test
-    fun fail() {
+    fun receiveFileFailTest() {
         // given
         val content = ADSContent.JUSUKR
 
         // when
-        val error = assertThrows<Exception> { collect(content = content, exception = true) }
+        val exception = assertThrows<Exception> { throw Exception("FAILED ${content.code} receiveFile") }
 
         // then
-        assertThat(error)
+        assertThat(exception)
             .message()
-            .isEqualTo("예외 발생!!")
+            .isEqualTo("FAILED ${content.code} receiveFile")
     }
 
-    @DisplayName("도로명주소(한글) 연계정보를 다운로드 요청하여 데이터 출력한다.")
+    @DisplayName("도로명주소(한글) 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
     @Test
     fun getTodayAddress() {
         // given
         val content = ADSContent.JUSUKR
 
         // when
-        val collection = collect(content = content)
+        val collection = addressCollectorService.collect(content = content)
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
         assertThat(log).isNotEmpty()
-    }
-
-    private fun collect(content: ADSContent, exception: Boolean = false): List<AddressContent> {
-        return if (exception) {
-            throw Exception("예외 발생!!")
-        } else {
-            addressCollectorService.collect(content = content)
-        }
     }
 
     private fun log(content: AddressContent): String {
