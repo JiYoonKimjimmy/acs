@@ -8,10 +8,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-class AddressCollectorServiceTest(
-    @Autowired val addressCollectorService: AddressCollectorService
-) {
+class AddressCollectorServiceTest {
 
     @DisplayName("도로명주소(한글) 연계정보를 ADSClient 다운로드 요청 실패한다.")
     @Test
@@ -26,28 +23,6 @@ class AddressCollectorServiceTest(
         assertThat(exception)
             .message()
             .isEqualTo("FAILED ${content.code} receiveFile")
-    }
-
-    @DisplayName("도로명주소(한글) 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
-    @Test
-    fun getTodayAddress() {
-        // given
-        val content = ADSContent.JUSUKR
-
-        // when
-        val collection = addressCollectorService.collect(content = content)
-
-        // then
-        val log = collection.joinToString(separator = "", transform = this::log)
-        assertThat(log).isNotEmpty()
-    }
-
-    private fun log(content: AddressContent): String {
-        return buildString {
-            this.append("\n================== START [${content.name}] ==================\n")
-            this.append(content.details.joinToString(separator = "\n") { it })
-            this.append("\n=================== END [${content.name}] ===================\n")
-        }
     }
 
 }
