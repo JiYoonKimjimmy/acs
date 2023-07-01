@@ -11,6 +11,7 @@
 효율적인지를 확인하는 것을 목표로 한다.
 
 > 학습 목표
+> - Test Code
 > - Spring WebClient
 > - Spring AOP
 > - Spring Security
