@@ -15,24 +15,24 @@
 
 ---
 
-### Keyword
+### `@SpringBootTest` vs `@WebMvcTest`
 
-- `@SpringBootTest` vs `@WebMvcTest`
-
----
-
-#### `@SpringBootTest` vs `@WebMvcTest`
-
-##### `@SpringBootTest`
+#### `@SpringBootTest`
 - `Spring` 프로젝트에서 **통합 테스트**를 진행하기 위한 애노테이션이다.
 - 테스트 코드에서 프로젝트 내에 등록된 `Bean` 를 주입받기 위해 사용할 수 있다.  
 - 테스트 코드 실행 시, Spring Context 를 reload 하는 과정에서 Spring 프로젝트 내 등록되는 Bean 객체를 모두 생성한다.
 - 단위 테스트인 경우, Bean 객체를 모두 생성하는 과정에서 시간이 걸리기 때문에 테스트 코드 성능이 저하될 수 있다.
 
-##### `@WebMvcTest`
+#### `@WebMvcTest`
 - `Spring` 프로젝트의 `WebApplication` 관련된 `Bean` 들만 등록하여 테스트를 진행하기 위한 애노테이션이다.
 - **통합 테스트**를 위한 `@SpringBootTest` 보단 빠른 테스트 빌드를 강점으로 가지고 있다.
 - 반대로, 테스트에서 필요한 `Bean` 객체를 모두 `Mock` 으로 설정해줘야하는 번거러움이 있다.
 - 실제 프로젝트의 기능과 달리 `Mocking` 이 되는 기능에 대한 차이가 있을 수 있다.
+
+---
+
+### Mockito
+
+***[Mockito features in Korean](https://github.com/mockito/mockito/wiki/Mockito-features-in-Korean)***
 
 ---
