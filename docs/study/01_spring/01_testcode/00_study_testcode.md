@@ -50,4 +50,6 @@
 @SpringBootTest(classes = [ApiApplication::class])
 ```
 
+> 참고 블로그 : [그냥 블로그 - Spring boot test 경로가 다른 패키지 테스트 시 오류](https://unhosted.tistory.com/77)
+
 ---
