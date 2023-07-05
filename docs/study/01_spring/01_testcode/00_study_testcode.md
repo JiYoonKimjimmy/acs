@@ -36,3 +36,20 @@
 ***[Mockito features in Korean](https://github.com/mockito/mockito/wiki/Mockito-features-in-Korean)***
 
 ---
+
+### 다른 `Package` 구성된 `SpringBootTest` 실행시 발생하는 에러 해결 방안
+
+> `Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test`
+
+- `Java` & `Kotlin` 으로 구성된 프로젝트인 경우, 각 언어별로 패키지가 분리되면서, 테스트 코드의 패키지도 분리된다.
+- 코드의 패키지는 분리되었지만, `@SpringBootApplication` 이 있는 클래스는 하나의 패키지에만 존재할 것이다. (e.g. 보통은 `Java` 패키지 안에 위치)
+- 이런 경우, 다른 패키지에 구성된 `@SpringBootTest` 를 실행하게 되면 `@SpringBootApplication` 클래스를 찾지 못하고 에러가 발생한다.
+- 해당 에러를 방지하기 위해서는, 다른 패키지의 `@SpringBootTest` 애노테이션의 `classes` 옵션을 추가하여 해결 가능한다.
+
+```kotlin
+@SpringBootTest(classes = [ApiApplication::class])
+```
+
+> 참고 블로그 : [그냥 블로그 - Spring boot test 경로가 다른 패키지 테스트 시 오류](https://unhosted.tistory.com/77)
+
+---
