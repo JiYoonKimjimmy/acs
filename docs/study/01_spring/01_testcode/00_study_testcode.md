@@ -35,6 +35,56 @@
 
 ***[Mockito features in Korean](https://github.com/mockito/mockito/wiki/Mockito-features-in-Korean)***
 
+#### `Mockito.mock()`
+
+- 원하는 타입의 `Mock` 객체를 생성할 때 사용하는 함수 : **`Mocking`**
+
+```java
+class MockitoTest {
+    void mockitoTest() {
+        TestService service = Mockito.mock(TestService.class);    
+    }
+}
+```
+
+> 이미 구현되어 있는 구현체 클래스를 **`Mocking` 모킹**할 필요는 없다. 외부 라이브러리 또는 API 와 같은 개발자가 제어할 수 없는 모듈에 대해서 모킹을 적용할 필요가 있다.
+
+#### `Mockito.when()`
+
+- `Mock` 객체의 행동을 정의하는 함수 : **`Stubbing`**
+
+```java
+class MockitoTest {
+    @Test
+    void mockitoTest() {
+        TestService service = Mockito.mock(TestService.class);
+        when(service.hello()).thenReturn("Hello World");
+        assertEquals("Hello World", service.hello());
+    }
+}   
+```
+
+#### `Mockito.verify()`
+
+- `Mock` 객체의 행동을 확인하는 함수
+
+```java
+class MockitoTest {
+    @Test
+    void mockitoTest() {
+        // given
+        TestService service = Mockito.mock(TestService.class);
+        
+        // when
+        when(service.hello()).thenReturn("Hello World");
+        
+        // then
+        assertEquals("Hello World", service.hello());
+        verify(service).hello();
+    }
+}
+```
+
 ---
 
 ### 다른 `Package` 구성된 `SpringBootTest` 실행시 발생하는 에러 해결 방안
