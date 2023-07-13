@@ -11,6 +11,13 @@ object FileManagementUtil {
     private val basePath: String by lazy { System.getProperty("user.dir") }
 
     /**
+     * 디렉토리 생성 처리
+     */
+    fun mkdir(path: String) {
+        File(path).let { if (!it.exists()) it.mkdirs() }
+    }
+
+    /**
      * 압축 파일 해제 처리
      */
     fun unzip(source: String, target: String): Boolean {

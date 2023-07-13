@@ -6,9 +6,9 @@ import kr.go.ads.client.ReceiveData
 import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.enumerate.ADSDateType
 import me.jimmyberg.acs.support.enumerate.YesNo
+import me.jimmyberg.acs.util.FileManagementUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import java.io.File
 import java.io.FileNotFoundException
 
 @Service
@@ -42,10 +42,7 @@ class ADSClient(
     }
 
     private fun mkdir(content: ADSContent) {
-        val directory = File("$filePath${content.code}")
-        if (!directory.exists()) {
-            directory.mkdir()
-        }
+        FileManagementUtil.mkdir("$filePath${content.code}")
     }
 
 }
