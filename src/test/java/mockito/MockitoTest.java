@@ -13,10 +13,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unchecked")
 public class MockitoTest {
 
     @DisplayName("Mockito 기본 동작 테스트 확인한다.")
-    @SuppressWarnings("unchecked")
     @Test
     void mockListSimpleTest() {
         List<String> mockedList = mock(List.class);
@@ -26,7 +26,6 @@ public class MockitoTest {
         assertEquals(5, mockedList.size());
     }
 
-    @SuppressWarnings("unchecked")
     @DisplayName("Stubbing 기본 동작 테스트 확인한다.")
     @Test
     void stubbingTest1() {
@@ -108,15 +107,20 @@ public class MockitoTest {
         verify(mockedList, atMost(5)).add("three times");
     }
 
+    @DisplayName("BDDMockito 를 활용하여 기본 컬렉션 Mock 객체에 Stubbing 하고, 검증한다.")
     @Test
-    void BDDTest1() {
+    void BDDMockitoTest1() {
         ArrayList<String> mockedList = mock(ArrayList.class);
 
+        // given
         given(mockedList.get(0)).willReturn("Hello");
 
+        // when
         System.out.println(mockedList.get(0));
-        // TODO `then()` 함수 사용 방법 확인
-//        assertEquals("Hello", then(mockedList.get(0)).should());
+        System.out.println(mockedList.get(0));
+
+        // then
+        then(mockedList).should(times(2));
     }
 
 }
