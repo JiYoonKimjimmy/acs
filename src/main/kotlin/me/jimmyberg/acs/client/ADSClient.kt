@@ -44,7 +44,7 @@ class ADSClient(
     private fun mkdir(content: ADSContent) {
         val directory = File("$filePath${content.code}")
         if (!directory.exists()) {
-            directory.mkdir()
+            directory.mkdirs()
         }
     }
 
