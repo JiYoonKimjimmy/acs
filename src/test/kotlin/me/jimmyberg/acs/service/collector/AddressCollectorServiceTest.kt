@@ -5,6 +5,12 @@ import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.mockito.Mock
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 
 class AddressCollectorServiceTest {
 
@@ -12,15 +18,11 @@ class AddressCollectorServiceTest {
     @Test
     fun receiveFileFailTest() {
         // given
+        val service = mock(AddressCollectorService::class.java)
         val content = ADSContent.JUSUKR
 
         // when
-        val exception = assertThrows<Exception> { throw Exception("FAILED ${content.code} receiveFile") }
-
-        // then
-        assertThat(exception)
-            .message()
-            .isEqualTo("FAILED ${content.code} receiveFile")
+        assertThrows<Exception> { `when`(service.collect(content)).thenThrow(Exception()) }
     }
 
 }
