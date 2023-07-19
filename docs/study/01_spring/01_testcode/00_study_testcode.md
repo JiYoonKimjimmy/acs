@@ -87,9 +87,68 @@ class MockitoTest {
 
 ---
 
+### Mockito's `@Mock` `@MockBean` `@Spy` `@SpyBean` `@InjectMocks`
+아래 Annotation 들은 `Mockito` 를 활용할 때, 제일 많이 사용하는 주요 Annotation 이라고 한다.
+그러기에, 하나씩 한번 정리해보고자 한다.
+
+#### `@Mock`
+- `Mockito.mock()` 를 대체하여 Mock 객체를 `Bean` 으로 등록하여 테스트 코드를 작성
+- `@ExtendWith(MockitoExtension.class)` Test 클래스 상위 선언 필요
+
+#### `@InjectMocks`
+- `@InjectMocks` 가 있는 `Bean` 객체를 생성할 때, `@Mock` 으로 등록된 **Mock 객체를 감지하여 주입하는** 역할
+
+```kotlin
+/**
+ * `SampleService` 클래스가 `SampleRepository` 의존성 주입을 받아야하는 클래스라면, 
+ * `@InjectMocks` 를 활용하여 `@Mock` 으로 등록된 `SampleRepository` Mock 객체 Bean 을 주입받아 Mock 객체 Bean 을 생성
+ */
+class SampleServiceTest(
+    @Mock
+    private val sampleRepository: SampleRepository,
+    @InjectMocks
+    private val sampleService: SampleService
+) {
+    // ...
+}
+```
+
+#### `@Spy`
+- `Mock` 객체로 사용하고자 하는 객체의 기능을 선택적으로 `Stubbing` 할 수 있는 역할
+- `@Spy` 로 등록된 `Mock` 객체의 함수(기능) 중 `Stubbing` 하지 않는 함수는 기존 정의된 로직을 수행 
+
+#### `@MockBean`
+- `@SpringBootTest` 통합 테스트를 수행할 때, `@Autowired` 로 생성되는 `Bean` 객체의 의존성을 주입하기 위한 `Mock` 객체를 생성하는 역할
+
+```kotlin
+/**
+ * `SampleService` 클래스가 `SampleRepository` 의존성 주입을 받아야하는 클래스라면,
+ * `@MockBean` 으로 등록된 `SampleRepository` Mock 객체 Bean 을 주입받아 Mock 객체 Bean 을 생성
+ */
+@SpringBootTest
+class SampleServiceTest(
+    @MockBean
+    private val sampleRepository: SampleRepository,
+    @Autowired
+    private val sampleService: SampleService
+) {
+    // ...
+}
+```
+
+#### `@SpyBean`
+- 통합 테스트 환경에서 `@Spy` 역할을 수행하기 위한 역할
+- `@Spy` 와 동일하게 `Stubbing` 하지 않는 함수는 그대로 구현 로직 수행
+- Interface 인터페이스를 `@SpyBean` 등록하는 경우, **해당 Interface 를 구현한 구현체가 `Spring Context` 에 등록 필수**
+  - `@SpyBean` 은 실제 구현체를 감싸는 프록시 객체이기 때문에 실제 구현체가 `Spring Context` 에 등록되어 있어야 한다.
+
+> 관련 참고 글 : [코비의 지극히 사적인 블로그 - Mockito @Mock @MockBean @Spy @SpyBean 차이점](https://cobbybb.tistory.com/16)
+
+---
+
 ### 다른 `Package` 구성된 `SpringBootTest` 실행시 발생하는 에러 해결 방안
 
-> `Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test`
+> `Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes = ...) with your test` 에러 발생하는 경우 참고
 
 - `Java` & `Kotlin` 으로 구성된 프로젝트인 경우, 각 언어별로 패키지가 분리되면서, 테스트 코드의 패키지도 분리된다.
 - 코드의 패키지는 분리되었지만, `@SpringBootApplication` 이 있는 클래스는 하나의 패키지에만 존재할 것이다. (e.g. 보통은 `Java` 패키지 안에 위치)
