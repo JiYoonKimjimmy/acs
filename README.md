@@ -11,7 +11,7 @@
 > - [Elasticsearch 학습](./docs/study/02_elasticsearch/00_study_es.md)
 > - 비동기 프로그래밍 학습
 > - Kotlin 클린 코드 & 심화 학습
-> - `TDD` 연습
+> - [테스트 코드 작성 및 `TDD` 연습](./docs/study/03_testcode/00_study_testcode.md)
 
 ---
 
