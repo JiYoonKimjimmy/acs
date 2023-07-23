@@ -146,6 +146,62 @@ class SampleServiceTest(
 
 ---
 
+### Kotlin Mocking F/W `MockK`
+
+`MockK` 는 `Java` 의 `Mockito` 를 대체하는 `Kotlin` 테스트 코드 프레임워크이다.
+
+`Kotlin` 에는 기본적으로 제공하는 다양항 `Collection` 클래스에도 확장함수를 제공하고 있다.
+`Java` 로만 이뤄진 프레임워크를 사용한다면, `Kotlin` 의 확장함수를 사용한 테스트 코드 작성에 제약이 생길 수 있다.
+
+그를 보완하고자 탄생한 `MockK` 를 활용해보자.
+
+#### `MockK` Dependency 추가
+
+```groovy
+testImplementation("io.mockk:mockk:1.12.4")
+```
+
+#### `mockk()`
+
+- `mockk()` 함수는 Mock 객체를 생성하는 함수
+- `@MockK` Annotation 제공하여 `Bean` 주입하는 Mock 객체 생성 가능 
+
+```kotlin
+class SampleTest(
+    @MockK
+    val sampleService: SampleService
+) {
+    @Test
+    fun sampleTest() {
+        val mock = mockk<SampleService>()
+    }
+}
+```
+
+#### `every()`
+
+- `every()` 함수는 Mock 객체의 기능을 정의하는 `Stubbing` 함수
+
+```kotlin
+@Test
+fun sampleTest() {
+    val mock = mockk<SampleService>()
+    every { mock.doSomething(any()) } returns "OK"
+}
+```
+
+> ##### Relaxed Mock
+> - Mock 객체는 `Stub` 정의하지 않으면 에러가 발생하는데, 이를 방지하기 위해 `relaxed = true` 설정
+> ```kotlin
+> val mock = mockk<SampleService>(relaxed = true)
+> ```
+
+#### `verify()`
+
+
+
+---
+
 ### 다른 `Package` 구성된 `SpringBootTest` 실행시 발생하는 에러 해결 방안
 
 > `Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes = ...) with your test` 에러 발생하는 경우 참고
