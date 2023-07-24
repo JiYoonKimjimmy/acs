@@ -198,7 +198,16 @@ fun sampleTest() {
 
 #### `verify()`
 
+- `verify()` 함수는 Mock 객체의 함수 호출 여부를 검증
 
+```kotlin
+@Test
+fun sampleTest() {
+    val mock = mockk<SampleService>()
+    mock.doSomething(1)
+    verify { mock.doSomething(any()) }
+}
+```
 
 ---
 
