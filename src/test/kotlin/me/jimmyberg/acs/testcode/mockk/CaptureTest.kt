@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.mockk
+package me.jimmyberg.acs.testcode.mockk
 
 import io.mockk.*
 import org.junit.jupiter.api.Test
