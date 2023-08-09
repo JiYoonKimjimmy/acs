@@ -18,6 +18,13 @@ enum class ADSContent(
         code = "100002",
         contents = emptyList()
     ),
+    JUSUZR(
+        title = "도로명",
+        code = "100005",
+        contents = listOf(
+            "TI_SPRD_RDNM"
+        )
+    ),
     JUSUEC(
         title = "도로명주소 출입구 정보",
         code = "200001",

@@ -27,6 +27,20 @@ class AddressCollectorServiceBootTest(
         assertThat(log).isNotEmpty()
     }
 
+    @DisplayName("도로명 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
+    @Test
+    fun getJUSUZR() {
+        // given
+        val content = ADSContent.JUSUZR
+
+        // when
+        val collection = addressCollectorService.collect(content = content)
+
+        // then
+        val log = collection.joinToString(separator = "", transform = this::log)
+        assertThat(log).isNotEmpty()
+    }
+
     @DisplayName("도로명주소 출입구 정보 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
     @Test
     fun getJUSUEC() {
