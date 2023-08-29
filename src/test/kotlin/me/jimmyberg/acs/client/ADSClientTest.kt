@@ -22,7 +22,7 @@ class ADSClientTest {
 
     @Test
     fun `100001 daily 다운로드 테스트`() {
-        daily(content = "100001", today = today())
+        daily(content = "100001", today = "20230828")
     }
 
     @Test

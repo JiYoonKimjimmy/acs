@@ -20,7 +20,7 @@ class AddressCollectorServiceBootTest(
         val content = ADSContent.JUSUKR
 
         // when
-        val collection = addressCollectorService.collect(content = content)
+        val collection = addressCollectorService.collect(content = content, date = "20230828")
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -48,7 +48,7 @@ class AddressCollectorServiceBootTest(
         val content = ADSContent.JUSUEC
 
         // when
-        val collection = addressCollectorService.collect(content = content)
+        val collection = addressCollectorService.collect(content = content, date = "20230828")
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
