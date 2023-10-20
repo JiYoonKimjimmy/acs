@@ -132,7 +132,8 @@ PUT jim_juso_index
           "gugun_synonym_filter": {
             "type": "synonym",
             "synonyms": [
-              "인천광역시 남구 => 인천광역시 미추홀구"
+              "인천광역시 남구 => 인천광역시 미추홀구",
+              "경상북도 군위군 => 대구광역시 군위군"
             ]
           },
           "shingle_filter": {
