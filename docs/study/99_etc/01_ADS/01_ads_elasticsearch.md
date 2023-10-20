@@ -68,6 +68,7 @@ PUT jim_juso_index
             "char_filter": [
               "road_address_replace_filter",
               "jibun_address_replace_filter",
+              "prev_jibun_addr_replace_filter",
               "etc_addr_replace_filter",
               "mapping_filter"
             ],
@@ -89,6 +90,11 @@ PUT jim_juso_index
             "type": "pattern_replace",
             "pattern": "(?<=구\\b\\s)(\\S+)\\s+(\\d*)\\s+([동|가|리]\\b)",
             "replacement": "$1$2$3"
+          },
+          "prev_jibun_addr_replace_filter": {
+            "type": "pattern_replace",
+            "pattern": "(.*\\b)(\\S+)(\\d)(\\.)(\\d)([동|가|리]\\b)",
+            "replacement": "$1$2$6 $2$3$6 $2$5$6"
           },
           "etc_addr_replace_filter": {
             "type": "pattern_replace",
@@ -175,6 +181,19 @@ PUT jim_juso_index
 
 - 지번 주소 정규화를 위한 캐릭터 필터
 - `영등포구 은행 1 동` 인 지번 문자열 공백 제거 > `영등포구 은행1동` 변환
+
+##### `prev_jibun_addr_replace_filter`
+
+```json
+{
+    "type": "pattern_replace",
+    "pattern": "(.*\\b)(\\S+)(\\d)(\\.)(\\d)([동|가|리]\\b)",
+    "replacement": "$1$2$6 $2$3$6 $2$5$6"
+}
+```
+
+- 이전(관련) 지번 주소 정규화를 위한 캐릭터 필터
+- `영등포구 은행1.2동` 인 이전 지번 문자열 분리 > `영등포구 은행동 은행1동 은행2동` 변환
 
 ##### `etc_addr_replace_filter`
 
