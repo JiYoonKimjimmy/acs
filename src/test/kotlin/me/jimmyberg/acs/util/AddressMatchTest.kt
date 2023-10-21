@@ -27,16 +27,12 @@ class AddressMatchTest {
          */
         val request_arr = request.split(" ").map(String::toCharArray)
         val response_arr = response.split(" ").map(String::toCharArray)
-        val arr_size = request_arr.size
         var result = true
-        for (i in 0 until arr_size) {
-            val isMatchedWords = isContainsAddressWords(request_arr[i], response_arr[i])
-            if (isMatchedWords.not()) result = isMatchedWords
-        }
 
+`        request_arr.forEachIndexed { i, it -> if (result) result = isContainsAddressWords(it, response_arr[i]) }
+`
         // then
-        assertThat(result)
-            .isTrue()
+        assertThat(result).isTrue()
     }
 
     @DisplayName("'서울시' 문자열이 '서울특별시' 문자열에 모두 포함된다면 true 를 반환한다")
