@@ -37,25 +37,25 @@
 ##### `jim_juso_index` 생성 Query
 
 ```json lines
-PUT jim_juso_index
+PUT acs-address-v1
 {
   "mappings": {
     "properties": {
       "fullAddress": {
         "type": "text",
-        "analyzer": "jim_juso_analyzer"
+        "analyzer": "acs_address_analyzer"
       },
       "roadAddress": {
         "type": "text",
-        "analyzer": "jim_juso_analyzer"
+        "analyzer": "acs_address_analyzer"
       },
       "jibunAddress": {
         "type": "text",
-        "analyzer": "jim_juso_analyzer"
+        "analyzer": "acs_address_analyzer"
       },
       "administrativeAddress": {
         "type": "text",
-        "analyzer": "jim_juso_analyzer"
+        "analyzer": "acs_address_analyzer"
       }
     }
   },
@@ -63,7 +63,7 @@ PUT jim_juso_index
     "index": {
       "analysis": {
         "analyzer": {
-          "jim_juso_analyzer": {
+          "acs_address_analyzer": {
             "type": "custom",
             "char_filter": [
               "road_address_replace_filter",
