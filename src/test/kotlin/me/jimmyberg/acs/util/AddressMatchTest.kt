@@ -29,8 +29,8 @@ class AddressMatchTest {
         val response_arr = response.split(" ").map(String::toCharArray)
         var result = true
 
-`        request_arr.forEachIndexed { i, it -> if (result) result = isContainsAddressWords(it, response_arr[i]) }
-`
+        request_arr.forEachIndexed { i, it -> if (result) result = isContainsAddressWords(it, response_arr[i]) }
+
         // then
         assertThat(result).isTrue()
     }
