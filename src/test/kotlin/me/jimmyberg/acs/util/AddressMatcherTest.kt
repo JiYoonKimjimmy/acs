@@ -4,11 +4,30 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class AddressMatchTest {
+class AddressMatcher(
+    private val address1: List<CharArray>,
+    private val address2: List<CharArray>
+) {
+    constructor(address1: String, address2: String): this(
+        address1 = address1.split(" ").map(String::toCharArray),
+        address2 = address2.split(" ").map(String::toCharArray)
+    )
+
+    fun isMatched(): Boolean {
+        var isMatched = true
+        address1.forEachIndexed { i, it ->
+            if (isMatched) isMatched = isContainsAddressWords(it, address2[i])
+        }
+        return isMatched
+    }
 
     private fun isContainsAddressWords(word1: CharArray, word2: CharArray): Boolean {
         return word1.all { word2.contains(it) }
     }
+
+}
+
+class AddressMatchTest {
 
     @DisplayName("도로명 타입의 검색 주소 정보와 결과 주소 정보의 일치 비율을 판단한다")
     @Test
@@ -25,11 +44,7 @@ class AddressMatchTest {
          *      - 포함 조건 : 문자열을 문자 하니씩 분리하여 포함되어 있는지 확인
          * 3. `request` 문자열 모두 포함되어 있다면, true 반환
          */
-        val request_arr = request.split(" ").map(String::toCharArray)
-        val response_arr = response.split(" ").map(String::toCharArray)
-        var result = true
-
-        request_arr.forEachIndexed { i, it -> if (result) result = isContainsAddressWords(it, response_arr[i]) }
+        val result = AddressMatcher(request, response).isMatched()
 
         // then
         assertThat(result).isTrue()
@@ -48,4 +63,5 @@ class AddressMatchTest {
         // then
         assertThat(result).isTrue()
     }
+
 }
