@@ -8,16 +8,19 @@ class AddressMatcher(
     private val address1: List<CharArray>,
     private val address2: List<CharArray>
 ) {
+
+    companion object {
+        const val BLANK = " "
+    }
+
     constructor(address1: String, address2: String): this(
-        address1 = address1.split(" ").map(String::toCharArray),
-        address2 = address2.split(" ").map(String::toCharArray)
+        address1 = address1.split(BLANK).map(String::toCharArray),
+        address2 = address2.split(BLANK).map(String::toCharArray)
     )
 
     fun isMatched(): Boolean {
         var isMatched = true
-        address1.forEachIndexed { i, it ->
-            if (isMatched) isMatched = isContainsAddressWords(it, address2[i])
-        }
+        address1.forEachIndexed { i, it -> if (isMatched) isMatched = isContainsAddressWords(it, address2[i]) }
         return isMatched
     }
 
