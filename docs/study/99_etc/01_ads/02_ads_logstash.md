@@ -52,7 +52,6 @@ filter {
 			}
 
 			mutate {
-				#split => {"message" => "|"}
 				add_field => {
 					"log_message_100001_MST" => "%{message}"
 					"full_addr_id" => "%{roadManagementNumber}%{roadCode}%{basementStatus}%{buildingNumber}%{buildingSubNumber}"
@@ -88,7 +87,6 @@ filter {
 				}
 			}
 
-
 			if [unitNumber] != '0' {
 				mutate {
 					replace => ["lotNumberAddrSub", "%{lotNumberAddrSub}-%{[unitNumber]}"]
@@ -115,7 +113,6 @@ filter {
 			}
 
 			mutate {
-				#replace => ["lot-number-addr-sub", "%{lot-number-addr-sub} %{[message][7]}-%{[message][8]}"]
 				replace => ["roadAddrMaster", "%{roadAddrMaster} %{[roadName]}"]
 			}
 
@@ -156,13 +153,6 @@ filter {
 					replace => ["roadAddrSub", "%{roadAddrSub} %{noteItem}"]
 				} 
 			}
-
-			#if [districtLedgerName] {
-			#	mutate {
-			#		replace => ["lotNumberAddrSub", "%{lotNumberAddrSub} %{[districtLedgerName]}"]
-			#		replace => ["administrativeAreaAddrSub", "%{administrativeAreaAddrSub} %{[districtLedgerName]}"]
-			#	}
-			#}
 
 			mutate {
 				add_field => {
@@ -257,10 +247,5 @@ output {
 		codec => rubydebug
 	}
 
-	#file {
-	#	path => "/data/logs/logstash/logstash_full-addr-%{+YYYY-MM-dd}.log"
-	#	codec => rubydebug
-	#}
-	
 }
 ```
