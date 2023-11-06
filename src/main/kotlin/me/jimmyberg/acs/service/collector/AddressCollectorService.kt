@@ -4,8 +4,8 @@ import me.jimmyberg.acs.client.ADSClient
 import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.enumerate.ADSDateType
 import me.jimmyberg.acs.support.enumerate.YesNo
-import me.jimmyberg.acs.util.FileManagementUtil
-import me.jimmyberg.acs.util.today
+import me.jimmyberg.acs.support.util.FileManagementUtil
+import me.jimmyberg.acs.support.util.today
 import org.springframework.stereotype.Service
 
 @Service

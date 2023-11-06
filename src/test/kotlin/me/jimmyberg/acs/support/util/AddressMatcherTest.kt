@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.util
+package me.jimmyberg.acs.support.util
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

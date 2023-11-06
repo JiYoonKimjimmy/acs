@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.util
+package me.jimmyberg.acs.support.util
 
 import java.io.BufferedReader
 import java.io.File

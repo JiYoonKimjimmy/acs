@@ -4,7 +4,7 @@ import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
 import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.enumerate.ADSResponseCode
-import me.jimmyberg.acs.util.today
+import me.jimmyberg.acs.support.util.today
 import org.junit.jupiter.api.Test
 import java.io.File
 

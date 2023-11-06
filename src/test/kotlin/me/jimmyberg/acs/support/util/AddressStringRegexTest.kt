@@ -1,4 +1,4 @@
-package me.jimmyberg.acs.util
+package me.jimmyberg.acs.support.util
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

@@ -6,7 +6,7 @@ import kr.go.ads.client.ReceiveData
 import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.enumerate.ADSDateType
 import me.jimmyberg.acs.support.enumerate.YesNo
-import me.jimmyberg.acs.util.FileManagementUtil
+import me.jimmyberg.acs.support.util.FileManagementUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.FileNotFoundException

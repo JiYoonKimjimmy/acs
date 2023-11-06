@@ -2,7 +2,7 @@ package me.jimmyberg.acs.api
 
 import me.jimmyberg.acs.service.collector.AddressCollectorService
 import me.jimmyberg.acs.support.enumerate.ADSContent
-import me.jimmyberg.acs.util.today
+import me.jimmyberg.acs.support.util.today
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
