@@ -1,1 +1,1 @@
-rootProject.name = "acs"
+rootProject.name = "demo-acs"
