@@ -7,9 +7,9 @@ import org.springframework.data.elasticsearch.annotations.Document
 data class V1AddressDocument(
 
     @Id
-    val id: String?,
-    val baseAddress: String,
-    val detailAddress: String,
-    val zipCode: String
+    private val id: String? = null,
+    private val baseAddress: String,
+    private val detailAddress: String,
+    private val zipCode: String
 
 )
