@@ -14,4 +14,12 @@ class AddressMapper {
         )
     }
 
+    fun mapToV1Document(address: Address): V1AddressDocument {
+        return V1AddressDocument(
+            zipCode = address.getZipCode(),
+            baseAddress = address.getBaseAddress(),
+            detailAddress = address.getDetailAddress()
+        )
+    }
+
 }

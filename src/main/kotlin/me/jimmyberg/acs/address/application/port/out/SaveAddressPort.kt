@@ -2,8 +2,8 @@ package me.jimmyberg.acs.address.application.port.out
 
 import me.jimmyberg.acs.address.domain.Address
 
-interface FindAddressPort {
+interface SaveAddressPort {
 
-    fun findAddressByZipCode(zipCode: String): Address
+    fun save(address: Address): Address
 
 }

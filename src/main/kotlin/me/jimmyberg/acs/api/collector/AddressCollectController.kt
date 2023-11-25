@@ -5,11 +5,7 @@ import me.jimmyberg.acs.repository.collector.V1AddressDocumentRepository
 import me.jimmyberg.acs.service.collector.AddressCollectorService
 import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.util.today
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class AddressCollectController(

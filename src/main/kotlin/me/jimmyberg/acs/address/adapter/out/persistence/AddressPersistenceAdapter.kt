@@ -1,6 +1,6 @@
 package me.jimmyberg.acs.address.adapter.out.persistence
 
-import me.jimmyberg.acs.address.application.port.out.FindAddressPort
+import me.jimmyberg.acs.address.application.port.out.SaveAddressPort
 import me.jimmyberg.acs.address.domain.Address
 import org.springframework.stereotype.Component
 
@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component
 class AddressPersistenceAdapter(
     private val v1AddressDocumentRepository: V1AddressDocumentRepository,
     private val addressMapper: AddressMapper
-) : FindAddressPort {
+) : SaveAddressPort {
 
-    override fun findAddressByZipCode(zipCode: String): Address {
-        return v1AddressDocumentRepository
-            .findFirstByZipCode(zipCode)
+    override fun save(address: Address): Address {
+        return addressMapper.mapToV1Document(address)
+            .let { v1AddressDocumentRepository.save(it) }
             .let { addressMapper.mapToDomain(it) }
     }
 
