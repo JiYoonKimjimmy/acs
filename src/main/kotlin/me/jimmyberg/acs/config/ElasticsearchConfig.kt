@@ -18,7 +18,7 @@ import java.security.cert.CertificateFactory
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 
-@EnableElasticsearchRepositories()
+@EnableElasticsearchRepositories(basePackages = ["me.jimmyberg.acs.address.adapter.out.persistence", "me.jimmyberg.acs.repository.collector"])
 @Configuration
 class ElasticsearchConfig : AbstractElasticsearchConfiguration() {
 

@@ -1,7 +1,7 @@
 package me.jimmyberg.acs.api.collector
 
 import me.jimmyberg.acs.domain.address.V1AddressDocument
-import me.jimmyberg.acs.repository.collector.V1AddressDocumentRepository
+import me.jimmyberg.acs.repository.collector.AddressDocumentRepository
 import me.jimmyberg.acs.service.collector.AddressCollectorService
 import me.jimmyberg.acs.support.enumerate.ADSContent
 import me.jimmyberg.acs.support.util.today
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class AddressCollectController(
     private val addressCollectorService: AddressCollectorService,
-    private val addressDocumentRepository: V1AddressDocumentRepository
+    private val addressDocumentRepository: AddressDocumentRepository
 ) {
 
     @PostMapping("/api/address/collect/{content}")
