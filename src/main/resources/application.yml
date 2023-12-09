@@ -2,3 +2,9 @@
 acs:
   client-key: U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI
   file-path: files/ADS_
+
+spring:
+  elasticsearch:
+    host: localhost:9200
+    username: elastic
+    password: UQPYExRkJAoAJrtB9CD4
