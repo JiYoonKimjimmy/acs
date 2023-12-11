@@ -5,50 +5,66 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
+import org.springframework.core.io.ResourceLoader
 import org.springframework.data.elasticsearch.client.ClientConfiguration
 import org.springframework.data.elasticsearch.client.RestClients
-import java.nio.file.Paths
 import java.security.KeyStore
+import java.security.cert.Certificate
 import java.security.cert.CertificateFactory
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 
 @Configuration
 class ElasticsearchConfig(
-    @Value("\${spring.elasticsearch.host}") val host: String,
-    @Value("\${spring.elasticsearch.username}") val username: String,
-    @Value("\${spring.elasticsearch.password}") val password: String
+    private val resourceLoader: ResourceLoader,
+    @Value("\${spring.elasticsearch.host}") private val host: String,
+    @Value("\${spring.elasticsearch.username}") private val username: String,
+    @Value("\${spring.elasticsearch.password}") private val password: String
 ) {
 
     @Bean
     @Primary
     fun restHighLevelClient(): RestHighLevelClient {
-        val path = Paths.get("/Users/jim/Desktop/00_kjy/01_dev/workspace/demo-acs/elastic/http_ca.crt")
-        // `X.509` 형식 인증서 처리 객체 생성
-        val certificateFactory = CertificateFactory.getInstance("X.509")
-        val certificate = certificateFactory.generateCertificate(path.toFile().inputStream())
+        val certification = getCertification()
+        val keyStore = getKeyStore(certification)
+        val trustManager = getTrustManager(keyStore)
+        val sslContext = getSSLContext(trustManager)
+        val clientConfiguration = getClientConfiguration(sslContext)
+        return RestClients.create(clientConfiguration).rest()
+    }
 
-        // `JKS` 형식 Key & 인증서 저장소 객체 생성
+    private fun getCertification(): Certificate {
+        val resource = resourceLoader.getResource("classpath:http_ca.crt")
+        val certificate = CertificateFactory.getInstance("X.509").generateCertificate(resource.inputStream)
+        return certificate
+    }
+
+    private fun getKeyStore(certificate: Certificate): KeyStore {
         val keyStore = KeyStore.getInstance("JKS")
         keyStore.load(null, null)
         keyStore.setCertificateEntry("ca", certificate)
+        return keyStore
+    }
 
-        // `TrustManagerFactory`: SSL 통신 서버의 신뢰 여부 확인 역할 수행
+    private fun getTrustManager(keyStore: KeyStore): TrustManagerFactory {
         val trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
         trustManagerFactory.init(keyStore)
+        return trustManagerFactory
+    }
 
-        // `TLS` 암호화 프로토콜 사용 SSL Context 객체 생
+    private fun getSSLContext(trustManagerFactory: TrustManagerFactory): SSLContext {
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(null, trustManagerFactory.trustManagers, null)
+        return sslContext
+    }
 
-        return RestClients.create(
-            ClientConfiguration
-                .builder()
-                .connectedTo(host)
-                .usingSsl(sslContext)
-                .withBasicAuth(username, password)
-                .build()
-        ).rest()
+    private fun getClientConfiguration(sslContext: SSLContext): ClientConfiguration {
+        return ClientConfiguration
+            .builder()
+            .connectedTo(host)
+            .usingSsl(sslContext)
+            .withBasicAuth(username, password)
+            .build()
     }
 
 }
