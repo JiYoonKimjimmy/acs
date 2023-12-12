@@ -12,6 +12,3 @@ Authorization: {{authorization}}
 ###
 GET {{url}}/{{indexName}}/_search
 Authorization: {{authorization}}
-
-###
-
