@@ -1,0 +1,17 @@
+# IntelliJ `.http` 인증성 설정 방법
+# - Settings > Tools > Server Certificates 설정에서 인증서 추가
+
+### ES Check
+GET {{url}}
+Authorization: {{authorization}}
+
+###
+GET {{url}}/_cat/indices
+Authorization: {{authorization}}
+
+###
+GET {{url}}/{{indexName}}/_search
+Authorization: {{authorization}}
+
+###
+
