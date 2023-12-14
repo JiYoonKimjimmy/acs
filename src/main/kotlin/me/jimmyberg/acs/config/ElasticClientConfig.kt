@@ -16,7 +16,8 @@ class ElasticClientConfig(
     private val resourceLoader: ResourceLoader,
     @Value("\${spring.elasticsearch.host}") private val host: String,
     @Value("\${spring.elasticsearch.username}") private val username: String,
-    @Value("\${spring.elasticsearch.password}") private val password: String
+    @Value("\${spring.elasticsearch.password}") private val password: String,
+    @Value("\${spring.elasticsearch.cert-file}") private val certFile: String
 ) : ElasticsearchConfiguration() {
 
     override fun clientConfiguration(): ClientConfiguration {
@@ -24,15 +25,11 @@ class ElasticClientConfig(
         val keyStore = getKeyStore(certification)
         val trustManager = getTrustManager(keyStore)
         val sslContext = getSSLContext(trustManager)
-        return ClientConfiguration
-            .builder()
-            .connectedTo(host)
-            .usingSsl(sslContext)
-            .build()
+        return getClientConfiguration(sslContext)
     }
 
     private fun getCertification(): Certificate {
-        val resource = resourceLoader.getResource("classpath:http_ca.crt")
+        val resource = resourceLoader.getResource("classpath:$certFile")
         val certificate = CertificateFactory.getInstance("X.509").generateCertificate(resource.inputStream)
         return certificate
     }
