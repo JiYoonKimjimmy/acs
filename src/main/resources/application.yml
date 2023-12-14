@@ -1,10 +1,21 @@
+# spring
+spring:
+  profiles:
+    active: local
+
 # acs
 acs:
   client-key: U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI
   file-path: files/ADS_
 
+---
+
 spring:
+  config:
+    activate:
+      on-profile: local
   elasticsearch:
     host: localhost:9200
     username: elastic
     password: UQPYExRkJAoAJrtB9CD4
+    cert-file: http_ca.crt
