@@ -4,6 +4,6 @@ import me.jimmyberg.acs.address.domain.Address
 
 interface SaveAddressUseCase {
 
-    fun save(address: Address): Address
+    fun save(command: SaveAddressCommand): Address
 
 }

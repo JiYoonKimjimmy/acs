@@ -1,6 +1,6 @@
-package me.jimmyberg.acs.address.domain
+package me.jimmyberg.acs.address.application.port.`in`
 
-data class Address(
+data class SaveAddressCommand(
     private val zipCode: String,
     private val baseAddress: String,
     private val detailAddress: String
