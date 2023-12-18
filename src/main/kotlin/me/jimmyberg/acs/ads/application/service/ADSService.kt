@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ADSService(
-    val adsClientService: ADSClientService
+    private val adsClientService: ADSClientService
 ) : CollectADSUseCase {
 
     /**
