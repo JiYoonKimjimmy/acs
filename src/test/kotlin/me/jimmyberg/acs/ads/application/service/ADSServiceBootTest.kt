@@ -3,16 +3,20 @@ package me.jimmyberg.acs.ads.application.service
 import me.jimmyberg.acs.support.enumerate.ADSContentType
 import me.jimmyberg.acs.support.util.today
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-class ADSServiceBootTest(
-    @Autowired
-    val adsService: ADSService
-) {
+class ADSServiceBootTest {
+
+    private lateinit var adsClientService: ADSClientService
+    private lateinit var adsService: ADSService
+
+    @BeforeEach
+    fun setUp() {
+        adsClientService = ADSClientService()
+        adsService = ADSService(adsClientService)
+    }
 
     @DisplayName("도로명주소(한글) 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
     @Test
