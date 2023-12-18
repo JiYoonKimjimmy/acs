@@ -1,6 +1,7 @@
 package me.jimmyberg.acs.ads.application.service
 
 import me.jimmyberg.acs.support.enumerate.ADSContentType
+import me.jimmyberg.acs.support.util.today
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class ADSServiceBootTest(
     @Autowired
-    val ADSService: ADSService
+    val adsService: ADSService
 ) {
 
     @DisplayName("도로명주소(한글) 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
@@ -20,7 +21,7 @@ class ADSServiceBootTest(
         val content = ADSContentType.JUSUKR
 
         // when
-        val collection = ADSService.collect(contentType = content, date = "20230828")
+        val collection = adsService.collect(contentType = content, date = "20231218")
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -34,7 +35,7 @@ class ADSServiceBootTest(
         val content = ADSContentType.JUSUZR
 
         // when
-        val collection = ADSService.collect(contentType = content)
+        val collection = adsService.collect(contentType = content, date = today())
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -48,7 +49,7 @@ class ADSServiceBootTest(
         val content = ADSContentType.JUSUEC
 
         // when
-        val collection = ADSService.collect(contentType = content, date = "20230828")
+        val collection = adsService.collect(contentType = content, date = "20230828")
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -62,7 +63,7 @@ class ADSServiceBootTest(
         val content = ADSContentType.JUSUIN
 
         // when
-        val collection = ADSService.collect(contentType = content)
+        val collection = adsService.collect(contentType = content, date = today())
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)

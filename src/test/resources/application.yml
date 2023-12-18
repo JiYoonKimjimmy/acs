@@ -1,3 +1,10 @@
-acs:
+spring:
+  elasticsearch:
+    host: localhost:9200
+    username: elastic
+    password: UQPYExRkJAoAJrtB9CD4
+    cert-file: http_ca.crt
+
+ads:
   client-key: U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=
   file-path: files/ADS_

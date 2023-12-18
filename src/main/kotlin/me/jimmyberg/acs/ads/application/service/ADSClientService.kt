@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service
 import java.io.FileNotFoundException
 
 @Service
-class ADSClient(
+class ADSClientService(
     var dateType: ADSDateType = ADSDateType.DATE,
     var retry: YesNo = YesNo.YES
 ) {
 
     // ADS 요청 승인 Key
-    @Value("\${acs.client-key}")
+    @Value("\${ads.client-key}")
     val clientKey = "U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI="
     // 파일 기본 경로
-    @Value("\${acs.file-path}")
+    @Value("\${ads.file-path}")
     val filePath: String = "files/ADS_"
 
     fun receive(content: ADSContentType, today: String): ArrayList<ReceiveData> {

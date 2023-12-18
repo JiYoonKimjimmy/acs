@@ -8,10 +8,7 @@ import me.jimmyberg.acs.support.util.today
 import org.junit.jupiter.api.Test
 import java.io.File
 
-/**
- * `U01TX0FVVEgyMDIzMDQxNTEzNDU0NzExMzY4OTI=`
- */
-class ADSClientTest {
+class ADSClientServiceTest {
 
     /**
      * [자료 요청 구분]
@@ -22,7 +19,7 @@ class ADSClientTest {
 
     @Test
     fun `100001 daily 다운로드 테스트`() {
-        daily(content = "100001", today = "20230828")
+        daily(content = "100001", today = "20231218")
     }
 
     @Test
@@ -58,7 +55,7 @@ class ADSClientTest {
     fun `ADSClient receive 함수 성공 테스트`() {
         val content = ADSContentType.JUSUEN
 
-        val result = ADSClient()
+        val result = ADSClientService()
             .receive(content = content, today = today())
             .all { it.resCode == ADSResponseCode.P0000.name }
 
@@ -74,7 +71,7 @@ class ADSClientTest {
             directory.delete()
         }
 
-        ADSClient().receive(content = content, today = today())
+        ADSClientService().receive(content = content, today = today())
     }
 
 }
