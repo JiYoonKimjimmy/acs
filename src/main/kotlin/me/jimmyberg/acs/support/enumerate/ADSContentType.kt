@@ -1,6 +1,6 @@
 package me.jimmyberg.acs.support.enumerate
 
-enum class ADSContent(
+enum class ADSContentType(
     val title: String,
     val code: String,
     val contents: List<String>

@@ -1,26 +1,26 @@
-package me.jimmyberg.acs.service.collector
+package me.jimmyberg.acs.ads.application.service
 
-import me.jimmyberg.acs.support.enumerate.ADSContent
-import org.assertj.core.api.Assertions.*
+import me.jimmyberg.acs.support.enumerate.ADSContentType
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class AddressCollectorServiceBootTest(
+class ADSServiceBootTest(
     @Autowired
-    val addressCollectorService: AddressCollectorService
+    val ADSService: ADSService
 ) {
 
     @DisplayName("도로명주소(한글) 연계정보를 다운로드 수집 요청하여 데이터 출력한다.")
     @Test
     fun getJUSUKR() {
         // given
-        val content = ADSContent.JUSUKR
+        val content = ADSContentType.JUSUKR
 
         // when
-        val collection = addressCollectorService.collect(content = content, date = "20230828")
+        val collection = ADSService.collect(contentType = content, date = "20230828")
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -31,10 +31,10 @@ class AddressCollectorServiceBootTest(
     @Test
     fun getJUSUZR() {
         // given
-        val content = ADSContent.JUSUZR
+        val content = ADSContentType.JUSUZR
 
         // when
-        val collection = addressCollectorService.collect(content = content)
+        val collection = ADSService.collect(contentType = content)
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -45,10 +45,10 @@ class AddressCollectorServiceBootTest(
     @Test
     fun getJUSUEC() {
         // given
-        val content = ADSContent.JUSUEC
+        val content = ADSContentType.JUSUEC
 
         // when
-        val collection = addressCollectorService.collect(content = content, date = "20230828")
+        val collection = ADSService.collect(contentType = content, date = "20230828")
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
@@ -59,17 +59,17 @@ class AddressCollectorServiceBootTest(
     @Test
     fun getJUSUIN() {
         // given
-        val content = ADSContent.JUSUIN
+        val content = ADSContentType.JUSUIN
 
         // when
-        val collection = addressCollectorService.collect(content = content)
+        val collection = ADSService.collect(contentType = content)
 
         // then
         val log = collection.joinToString(separator = "", transform = this::log)
         assertThat(log).isNotEmpty()
     }
 
-    private fun log(content: AddressContent): String {
+    private fun log(content: me.jimmyberg.acs.ads.domain.ADSContent): String {
         return buildString {
             this.append("\n================== START [${content.name}] ==================\n")
             this.append(content.details.joinToString(separator = "\n") { it })

@@ -1,9 +1,9 @@
-package me.jimmyberg.acs.client
+package me.jimmyberg.acs.ads.application.service
 
 import kr.go.ads.client.ADSReceiver
 import kr.go.ads.client.ADSUtils
 import kr.go.ads.client.ReceiveData
-import me.jimmyberg.acs.support.enumerate.ADSContent
+import me.jimmyberg.acs.support.enumerate.ADSContentType
 import me.jimmyberg.acs.support.enumerate.ADSDateType
 import me.jimmyberg.acs.support.enumerate.YesNo
 import me.jimmyberg.acs.support.util.FileManagementUtil
@@ -24,7 +24,7 @@ class ADSClient(
     @Value("\${acs.file-path}")
     val filePath: String = "files/ADS_"
 
-    fun receive(content: ADSContent, today: String): ArrayList<ReceiveData> {
+    fun receive(content: ADSContentType, today: String): ArrayList<ReceiveData> {
         return try {
             ADSReceiver()
                 .apply {
@@ -41,7 +41,7 @@ class ADSClient(
         }
     }
 
-    private fun mkdir(content: ADSContent) {
+    private fun mkdir(content: ADSContentType) {
         FileManagementUtil.mkdir("$filePath${content.code}")
     }
 

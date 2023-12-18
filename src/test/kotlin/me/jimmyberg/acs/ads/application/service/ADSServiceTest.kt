@@ -1,7 +1,6 @@
-package me.jimmyberg.acs.service.collector
+package me.jimmyberg.acs.ads.application.service
 
-import me.jimmyberg.acs.support.enumerate.ADSContent
-import org.assertj.core.api.Assertions.*
+import me.jimmyberg.acs.support.enumerate.ADSContentType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -12,37 +11,40 @@ import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class AddressCollectorServiceTest(
+class ADSServiceTest(
     @Mock
-    private val addressCollectorService: AddressCollectorService
+    private val ADSService: ADSService
 ) {
 
     @DisplayName("도로명주소(한글) 연계정보를 ADSClient 다운로드 요청 실패한다.")
     @Test
     fun receiveFileFailTest() {
         // given
-        val content = ADSContent.JUSUKR
+        val content = ADSContentType.JUSUKR
 
         // when
-        assertThrows<Exception> { `when`(addressCollectorService.collect(content)).thenThrow(Exception()) }
+        assertThrows<Exception> { `when`(ADSService.collect(content)).thenThrow(Exception()) }
     }
 
     @DisplayName("도로명주소(한글) 연계정보를 다운로드 요청하여 정상 수신하여 건수를 확인한다.")
     @Test
     fun receiveFileSuccessTest() {
         // given
-        val content = ADSContent.JUSUKR
-        val addressContent = listOf(AddressContent(name = "도로명주소(한글)", details = listOf("도로명주소1", "도로명주소2")))
+        val content = ADSContentType.JUSUKR
+        val ADSContent = listOf(me.jimmyberg.acs.ads.domain.ADSContent(
+            name = "도로명주소(한글)",
+            details = listOf("도로명주소1", "도로명주소2")
+        ))
 
         // when
-        `when`(addressCollectorService.collect(content)).thenReturn(addressContent)
+        `when`(ADSService.collect(content)).thenReturn(ADSContent)
 
         // then
-        val collection = addressCollectorService.collect(content)[0]
-        assertEquals(collection, addressContent[0])
+        val collection = ADSService.collect(content)[0]
+        assertEquals(collection, ADSContent[0])
         assertEquals(collection.details.size, 2)
 
-        verify(addressCollectorService, times(1)).collect(content)
+        verify(ADSService, times(1)).collect(content)
     }
 
 }
